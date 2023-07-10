@@ -1,0 +1,23 @@
+
+spring:
+   datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    password: root
+    url: jdbc:mysql://localhost:3306/shopgny
+    username: root
+   jpa:
+     database-platform: org.hibernate.dialect.MySQL8Dialect
+     properties:
+       hibernate:
+         format_sql=true:
+     hibernate:
+      ddl-auto: update
+      show-sql: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+custom:
+      message: Welcome to ShopGnY!
