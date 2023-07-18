@@ -1,0 +1,209 @@
+{
+	"info": {
+		"_postman_id": "74cffeda-14f9-4340-96fb-95b5924e3888",
+		"name": "ecommercereal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "5994374",
+		"_collection_link": "https://gold-capsule-117845.postman.co/workspace/ecommerce~67d6a84e-9a25-4eb5-85b5-77edf970af5a/collection/5994374-74cffeda-14f9-4340-96fb-95b5924e3888?action=share&creator=5994374&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "SaveCategoriesPost",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"category_name\":\"vegetables\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/savecategory"
+			},
+			"response": []
+		},
+		{
+			"name": "saveitempost",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"item_name\": \"cabbage\",\r\n    \"category_id\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/saveitem"
+			},
+			"response": []
+		},
+		{
+			"name": "customer signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customerName\":\"sharath\",\r\n    \"customerAddress\":\"pune\",\r\n    \"customerPhone\":\"1010\",\r\n    \"customerEmail\":\"a@b.com\",\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/signup"
+			},
+			"response": []
+		},
+		{
+			"name": "saveshoppingcart",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"customer_id\":1,\r\n    \"shoppingCartItems\":\r\n    [\r\n      {\r\n        \"item_id\":1,\r\n        \"itemQty\":9\r\n      },\r\n      {\r\n        \"item_id\":2,\r\n        \"itemQty\":8\r\n      }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/saveshoppingcart"
+			},
+			"response": []
+		},
+		{
+			"name": "savepromotion",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"itemId\":1,\r\n    \"percentage\":10\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/savepromotion"
+			},
+			"response": []
+		},
+		{
+			"name": "savereview",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"item_id\":2,\r\n    \"stars\":5,\r\n    \"review_desc\":\"Good clarity,resolution and color reproduction\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/savereview"
+			},
+			"response": []
+		},
+		{
+			"name": "savecustomerorder",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n\"customer_id\":1,\r\n\"shippingAddress\":\"Ahmedabad 509090\",\r\n\"orderItems\":[\r\n    {\r\n       \"orderitemqty\":5,\r\n       \"item_id\":2\r\n    }\r\n]\r\n    \r\n\r\n\r\n\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/savecustomerorder"
+			},
+			"response": []
+		},
+		{
+			"name": "savereturn",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "1",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/savereturn"
+			},
+			"response": []
+		},
+		{
+			"name": "saveshipment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/saveshipment"
+			},
+			"response": []
+		},
+		{
+			"name": "saveshipmentstage",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"shipment_id\":1,\r\n    \"stageOrder\":2,\r\n    \"stageName\":\"blore\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/saveshipmentstage"
+			},
+			"response": []
+		},
+		{
+			"name": "saveshipmenttracker",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"shipment_id\":1,\r\n    \"stageName\":\"blore\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/saveshipmenttracker"
+			},
+			"response": []
+		}
+	]
+}
