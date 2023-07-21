@@ -4,18 +4,14 @@ package com.seeker.ecommerceportal.service;
 import com.seeker.ecommerceportal.Repository.*;
 import com.seeker.ecommerceportal.entity.*;
 import com.seeker.ecommerceportal.error.ItemNotFoundException;
-import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.seeker.ecommerceportal.Repository.ShoppingCartRepository;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -86,6 +82,8 @@ public class PortalServiceImpl implements  PortalService {
     }
 
 
+
+
     @Override
     public Customer saveCustomer(Customer customer) {
         return customerRepository.save(customer);
@@ -109,12 +107,7 @@ public class PortalServiceImpl implements  PortalService {
         customerOrder.setShippingAddress(customerOrderPayload.getShippingAddress());
         customerOrder.setOrderDate(java.time.Instant.now());
         customerOrderRepository.save(customerOrder);
-        // generate a bill
-        Bill bill = new Bill();
-        bill.setCustomerOrder(customerOrder);
-        //calculateBill(customerOrder);
-       // bill.setBill_amt();
-        billRepository.save(bill);
+
 
         //save order items
         java.util.Iterator iter = orderItemPayloadList.iterator();
@@ -122,19 +115,39 @@ public class PortalServiceImpl implements  PortalService {
         OrderItemPayload orderItemPayload;
         OrderItem orderItem;
         LOGGER.info("orderItemPayload[1] "+ orderItemPayloadList.get(0).toString());
-
+        Long billAmt = 0L;
         for(int i = 0; i < orderItemPayloadList.size(); i++){
             orderItemPayload = (OrderItemPayload)  orderItemPayloadList.get(i);
             LOGGER.info("orderItemPayload = "+ orderItemPayload.toString());
+            Long itemId = orderItemPayload.getItem_id() ;
+            Long itemQty = orderItemPayload.getOrderitemqty() ;
+
+
+
+            billAmt +=  itemRepository.findById(orderItemPayload.getItem_id()).get().getItem_price() *
+                        orderItemPayload.getOrderitemqty();
+
+
             orderItem = new OrderItem();
             orderItem.setItem(itemRepository.findById(orderItemPayload.getItem_id()).get());
             orderItem.setOrder(customerOrder);
             orderItem.setOrderItemQty(orderItemPayload.getOrderitemqty());
             orderItemRepository.save(orderItem);
         }
+        // generate a bill
+        Bill bill = new Bill();
+        bill.setCustomerOrder(customerOrder);
+        bill.setBill_amt(billAmt);
+        billRepository.save(bill);
         return customerOrderPayload;
     }
 
+
+    @Override
+    public List<CustomerOrder> getAllOrdersForCustomer(Long customerId) {
+        List<CustomerOrder> orders = customerOrderRepository.getAllOrdersForCustomer(customerId);
+        return orders;
+    }
 
 
     @Override

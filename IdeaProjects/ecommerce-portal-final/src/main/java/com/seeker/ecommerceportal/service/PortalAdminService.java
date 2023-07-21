@@ -39,4 +39,7 @@ public interface PortalAdminService {
     public ShipmentStage saveShipmentStage(ShipmentStagePayload shipmentStagePayload);
     public ShipmentTracker saveShipmentTracker(ShipmentTrackerPayload shipmentTrackerPayload);
 
+
+
+    public Inventory addInventoryById(Long itemId,Long itemQty);
 }

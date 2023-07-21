@@ -32,6 +32,7 @@ public class PortalAdminController {
         Item item = new Item();
         item.setItem_name(itemPayload.getItem_name());
         item.setCategory(category);
+        item.setItem_price(itemPayload.getItem_price());
         return portalAdminService.saveItem(item);
     }
     @PostMapping("/savecategory")
@@ -66,12 +67,14 @@ public class PortalAdminController {
     }
 
 
+
+
     @PostMapping("/savecustomerorder")
     public CustomerOrderPayload saveOrder(@Valid @RequestBody CustomerOrderPayload customerOrderPayload){
         LOGGER.info("savecustomerorder function");
         return portalService.saveCustomerOrder(customerOrderPayload);
     }
-    @GetMapping("/getallcustomerorders")
+    @GetMapping("/getallcustomersorders")
     public List<CustomerOrder>fetchCustomerOrderList(){
         return portalAdminService.fetchCustomerOrderList() ;
     }
@@ -81,4 +84,10 @@ public class PortalAdminController {
     public CustomerOrder fetchCustomerOrderById(@PathVariable("id") Long order_id) throws ItemNotFoundException {
         return portalAdminService.fetchCustomerOrderById(order_id);
     }
+
+    @PostMapping("/addinventory")
+    public Inventory addInventoryById(@Valid @RequestBody  Inventory inventory) {
+        return portalAdminService.addInventoryById(inventory.getItem().getItem_id(),inventory.getItem_qty());
+    }
+
 }

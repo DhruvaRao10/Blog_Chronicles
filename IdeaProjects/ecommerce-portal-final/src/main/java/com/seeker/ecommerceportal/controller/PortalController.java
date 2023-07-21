@@ -34,20 +34,23 @@ public class PortalController {
         return portalService.fetchItemsById(item_id);
     }
 
-
-
     @PostMapping("/saveshoppingcart")
     public ShoppingCartPayload saveShoppingCart(@Valid @RequestBody ShoppingCartPayload shoppingCartPayload){
         LOGGER.info("saveShoppingCart function");
         return portalService.saveShoppingCart(shoppingCartPayload);
     }
+
     @GetMapping("shoppingcart")
     public List<ShoppingCart> fetchShoppingcartList(){
         return portalService.fetchShoppingCartList();
     }
 
-    //getallcustomers, getallitems and available qty, fix savecustomerorder by doing billing correctly,
-    //method to execute a customer order for all shoppingcartitems i.e shoppingcat->customerorder with all the items in the cart
-    //
+    @GetMapping("/getallordersforcustomer")
+    public List<CustomerOrder> getAllOrdersForCustomer(@Valid @RequestBody  Long customerId){
+        LOGGER.info("getallordersforcustomer function");
+        List<CustomerOrder> orders = portalService.getAllOrdersForCustomer(customerId);
+        LOGGER.info(" size " + orders.size());
+        return orders;
+    }
 
 }

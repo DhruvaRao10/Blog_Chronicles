@@ -6,6 +6,7 @@ import com.seeker.ecommerceportal.Repository.CategoryRepository;
 
 import com.seeker.ecommerceportal.Repository.CustomerRepository;
 
+
 import com.seeker.ecommerceportal.Repository.*;
 import com.seeker.ecommerceportal.entity.*;
 import com.seeker.ecommerceportal.error.ItemNotFoundException;
@@ -41,10 +42,10 @@ public class  PortalAdminServiceImpl implements  PortalAdminService {
     private ShipmentTrackerRepository shipmentTrackerRepository;
 
     @Autowired
-    private OrderItemRepository orderItemRepository;
-
-    @Autowired
     private CustomerOrderRepository customerOrderRepository;
+    @Autowired
+    private InventoryRepository inventoryRepository;
+
     @Override
     public Item saveItem(Item item){
         return itemRepository.save(item);
@@ -122,6 +123,17 @@ public class  PortalAdminServiceImpl implements  PortalAdminService {
     }
 
 
+
+    @Override
+    public Inventory addInventoryById(Long itemId,Long itemQty) {
+        Inventory inventory = inventoryRepository.findById(itemId).get() ;
+        Long existingQty = inventory.getItem_qty() ;
+        inventory.setItem_qty(itemQty+existingQty);
+        inventoryRepository.update(inventory);
+        return inventory;
+//        inventoryRepository.findById(itemQty) ;
+
+    }
 
 
 }

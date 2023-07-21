@@ -1,7 +1,6 @@
-
 package com.seeker.ecommerceportal.Repository;
 
-import com.seeker.ecommerceportal.entity.OrderItem;
+import com.seeker.ecommerceportal.entity.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,5 +9,3 @@ import org.springframework.stereotype.Repository;
 public interface OrderItemRepository  extends JpaRepository<OrderItem,Long> {
 
 }
-
-

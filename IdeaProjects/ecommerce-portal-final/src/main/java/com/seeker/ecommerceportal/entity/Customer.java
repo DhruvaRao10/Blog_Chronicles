@@ -22,7 +22,7 @@ public class Customer {
     private Long customer_id;
     @NotBlank(message="Customer Name cannot be blank")
     private String customerName;
-    private String customerAddress;
+    private String customerAddress ;
     private String customerPhone;
 
     private String customerEmail;

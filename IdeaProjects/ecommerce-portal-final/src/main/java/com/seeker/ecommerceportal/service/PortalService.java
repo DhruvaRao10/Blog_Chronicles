@@ -9,9 +9,10 @@ public interface PortalService {
 
     public List<Item> fetchItemsList();
     public Customer saveCustomer(Customer customer);
-    ShoppingCart fetchShoppingCartById(Long item_id) throws ItemNotFoundException;
+    ShoppingCart fetchShoppingCartById(Long item_id) throws  ItemNotFoundException ;
 
     ShoppingCartPayload saveShoppingCart(ShoppingCartPayload shoppingCartPayload);
+
 
     public Item fetchItemsById(Long customer_id) throws ItemNotFoundException;
 
@@ -24,4 +25,8 @@ public interface PortalService {
     Promotions savePromotion(PromotionPayload payload);
 
     CustomerOrderPayload saveCustomerOrder(CustomerOrderPayload customerOrderPayload);
+
+
+
+    public List<CustomerOrder> getAllOrdersForCustomer(Long customer_id);
 }
