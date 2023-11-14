@@ -20,10 +20,10 @@ body::before {
   bottom: 0;
   left: 0;
   z-index: -1; /* Place the pseudo-element behind the content */
-  background-image: url(back49.jpg);
+  background-image: url(back23.jpg);
   
   background-size: cover;
-  filter: blur(9px); /* Adjust the value to control the intensity of the blur */
+  filter: blur(0px); /* Adjust the value to control the intensity of the blur */
   pointer-events: none; /* Allows clicking through the pseudo-element to the content */
 }
 p, h1, h2, h3, a, ul{
