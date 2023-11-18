@@ -1,12 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Amita&family=Kalam&family=Lato:wght@400;700&family=Poppins:wght@500&family=Roboto+Condensed:wght@300&family=Yatra+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Amita&family=Kalam&family=Lato:wght@400;700&family=Poppins:wght@500&family=Roboto+Condensed:wght@300&family=Satisfy&family=Yatra+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Texturina:ital,opsz,wght@1,12..72,100&display=swap');
 body{
   max-width: 1200px;
   margin: 20px auto;
   padding: 0 20px;
-  font-family: 'Noto Serif', serif;
+  font-family: 'Texturina', serif;
+  /* font-family: 'Noto Serif', serif; */
   max-width: 1200px;
+  /* background-image: url(back8.jpg) ; */
+  
+  
+}
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1; /* Place the pseudo-element behind the content */
+  background-image: url(back23.jpg);
+  
+  background-size: cover;
+  filter: blur(0px); /* Adjust the value to control the intensity of the blur */
+  pointer-events: none; /* Allows clicking through the pseudo-element to the content */
 }
 p, h1, h2, h3, a, ul{
   margin: 0;
@@ -81,7 +100,7 @@ h3{
 }
 /* create styles */
 .create-blog form{
-  max-width: 400px;
+  max-width: 600px;
   margin: 0 auto;
 }
 .create-blog input,
@@ -90,6 +109,7 @@ h3{
   width: 100%;
   margin: 10px 0;
   padding: 8px;
+  border-radius: 8px;
 }
 .create-blog label{
   display: block;
@@ -97,6 +117,7 @@ h3{
 }
 textarea{
   height: 120px;
+  border-radius: 8px;
 }
 .create-blog button{
   margin-top: 20px;
