@@ -71,7 +71,7 @@ app.use(morgan('dev')); // not necessary
             //     // {title: 'How to defeat browser', snippet: 'hferb iikukr ulurgt  iuk'}
             // ]
             // res.render('index' , {title:'Home', blogs})
-            res.redirect('/blogs')
+            res.redirect('/home')
         })
     app.get('/about',(req,res)=>{ 
         // res.send('<H1>Hello At ABOUT PAGE</H1>')   
@@ -81,6 +81,10 @@ app.use(morgan('dev')); // not necessary
 
 app.get('/blog/create', (req,res) =>{
     res.render('create',{title:'Create a new Blog'})
+})
+
+app.get('/home', (req,res) =>{
+    res.render('home',{title:'Create a new Blog'})
 })
 
 app.get('/blogs', (req,res)=>{
