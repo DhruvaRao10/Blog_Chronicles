@@ -1,16 +1,30 @@
 const mongoose = require('mongoose');
 const connect = mongoose.connect("mongodb://localhost:27017/Blog_Chronicles");
+// const mongoURI = 'mongodb://localhost:27017/Blog_Chronicles' ; 
 
 connect.then(() =>{
     console.log("Database connected");
-})
+})                 
 
 .catch(() =>{
    console.log("Database not connected");
 })
 
+
+
+
+// connect.then({
+//     useNewUrlParser: true , 
+//     useCreateIndex: true , 
+//     useUnifiedTopology: true 
+// })
+// .then((res)=>{
+//      console.log('MongoDB connected') ; 
+// }); 
 //Schema
 
+
+                                             
 const LoginSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -19,7 +33,8 @@ const LoginSchema = new mongoose.Schema({
 
     email:{
         type: String,
-        required:true  
+        required:true,  
+        unique:true
     },
 
     password:{
@@ -28,6 +43,27 @@ const LoginSchema = new mongoose.Schema({
     }
 });
 
-const collection = new mongoose.model('Users',LoginSchema) ;
+ const SearchSchema = new mongoose.Schema({
+    Topic: {
+        type: String,
+        required: true 
+    },
 
-module.exports = collection ; 
+    Title:{
+        type: String,
+        required:true  
+    },
+
+    Content:{
+        type:String,
+        required: true 
+    }
+});
+
+const collection = new mongoose.model('Users',LoginSchema) ;
+//const searchcollection =  new mongoose.model('Search',SearchSchema) ;
+
+module.exports = {
+    collection,   
+    //searchcollection
+}
