@@ -24,6 +24,18 @@ connect.then(() =>{
 //Schema
 
 
+// const blogSchema=new mongoose.Schema({
+//     title:{type:String, required:true},
+//     snippet:{type:String, required:true},
+//     body:{type:String, required:true}
+// },{timestamps:true});
+
+
+// // first argument is the name which it should search for in the database : Second argument is the schema/type of object to should store in database
+// const Blog = mongoose.model('Blog', blogSchema);
+
+
+
                                              
 const LoginSchema = new mongoose.Schema({
     name: {
@@ -43,22 +55,22 @@ const LoginSchema = new mongoose.Schema({
     }
 });
 
- const SearchSchema = new mongoose.Schema({
-    Topic: {
-        type: String,
-        required: true 
-    },
+//  const SearchSchema = new mongoose.Schema({
+//     Topic: {
+//         type: String,
+//         required: true 
+//     },
 
-    Title:{
-        type: String,
-        required:true  
-    },
+//     Title:{
+//         type: String,
+//         required:true  
+//     },
 
-    Content:{
-        type:String,
-        required: true 
-    }
-});
+//     Content:{
+//         type:String,
+//         required: true 
+//     }
+// });
 
 const collection = new mongoose.model('Users',LoginSchema) ;
 //const searchcollection =  new mongoose.model('Search',SearchSchema) ;
@@ -66,4 +78,5 @@ const collection = new mongoose.model('Users',LoginSchema) ;
 module.exports = {
     collection,   
     //searchcollection
+    // Blog
 }

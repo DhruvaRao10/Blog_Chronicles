@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset = "UTF-8">
+		<meta name = "viewport" contents = "width=device-width,initial-scale=1.0">
+		<title>Document</title>
+		<link rel = "stylesheet" href = "text_editor.css">
+		<link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	</head>
+	<body>
+		<form>
+			<button type="button" class="justifyLeft">
+				<i class="fa fa-align-left" aria-hidden="true"></i>
+			  </button>
+			  <button type="button" data-cmd="justifyCenter">
+				<i class = "fa fa-align-center" aria-hidden="true"></i>
+              </button>
+			  <button type="button" data-cmd="justifyFull">
+				<i class = "fa fa-align-justify" aria-hidden="true"></i>
+              </button>
+			  <button type="button" data-cmd="justifyRight">
+				<i class = "fa fa-align-right" aria-hidden="true"></i>
+              </button>
+			  <button type="button" data-cmd="bold">
+				<i class = "fa fa-bold" aria-hidden="true"></i>
+              </button>  
+			  <button type="button" data-cmd="italic">
+				<i class = "fa fa-italic" aria-hidden="true"></i>
+              </button>
+			  <button type="button" data-cmd="underline">
+				<i class = "fa fa-underline" aria-hidden="true"></i>
+              </button>
+			  <button type="button" data-cmd="insertOrderedList">
+				<i class = "fa fa-list-ol" aria-hidden="true"></i>
+              </button>
+			  <button type="button" data-cmd="insertUnorderedList">
+				<i class = "fa fa-list-ul" aria-hidden="true"></i>
+              </button>
+			  <button type="button" data-cmd="insertImage">
+				<i class = "fa fa-file-image-o" aria-hidden="true"></i>
+              </button>
+			  <button type="button" data-cmd="createLink">
+				<i class = "fa fa-link" aria-hidden="true"></i>
+              </button>
+			  <button type="button" data-cmd="showCode" name="active">
+				<i class = "fa fa-code" aria-hidden="true"></i>
+              </button>	
+       </form>
+	   <iframe id="output" name="textField"></iframe>
+	   <script>
+		   const buttons = document.querySelectorAll('button') ; 
+           textField.document.designMode = "On" ; 
+		   let show = false ; 
+    	   for(let i=0 ; i<buttons.length ; i++){
+			  buttons[i].addEventListener('click',()=>{
+			 	  let cmd = buttons[i].getAttribute('data-cmd');
+			 	  if(buttons[i].name === "active"){
+					   buttons[i].classList.toggle('active');
+				  }
+				  if(cmd === "insertImage" || cmd === "createLink"){
+					  let url = prompt("Enter link here: ", "");
+					  textField.document.execCommand(cmd,false,url);
+					  if(cmd === "insertImage"){
+						 const imgs = document.querySelectorAll('img') ;
+						 imgs.forEach(item => {
+							  item.style.maxWidth = "500px" ; 
+						 })
+					  }
+					  else{
+						 const links = textField.document.querySelectorAll('a') ; 
+
+						 links.forEach(item =>{
+							item.target = "_blank";
+							item.addEventListener('mouseover',()=>{
+                                  textField.document.designMode = "Off";
+							});
+							item.addEventListener('mouseout',()=>{
+                                  textField.document.designMode = "On";
+							});
+						 })
+					  }
+				 }
+				 else{
+					  textField.document.execCommand(cmd , false , null) ;
+				 }
+				 if(cmd === "showCode"){
+					 const textBody = textField.document.querySelector('body');
+					 if(show){
+						 textBody.innerHTML = textBody.textContent ;
+						 show = false ; 
+					 }
+					 else{
+						 textBody.textContent = textBody.innerHTML ; 
+						 show = true ; 
+					 }
+				 }
+			 })
+		  }
+	   </script>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rich Text Editor</title> -->
+    <!-- FontAwesome Icons -->
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    /> -->
+    <!-- Google Fonts -->
+    <!-- <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    /> -->
+    <!-- Stylesheet -->
+    <!-- <link rel="stylesheet" href="text_editor.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="options"> -->
+        <!-- Text Format -->
+        <!-- <button id="bold" class="option-button format">
+          <i class="fa-solid fa-bold"></i>
+        </button>
+        <button id="italic" class="option-button format">
+          <i class="fa-solid fa-italic"></i>
+        </button>
+        <button id="underline" class="option-button format">
+          <i class="fa-solid fa-underline"></i>
+        </button>
+        <button id="strikethrough" class="option-button format">
+          <i class="fa-solid fa-strikethrough"></i>
+        </button>
+        <button id="superscript" class="option-button script">
+          <i class="fa-solid fa-superscript"></i>
+        </button>
+        <button id="subscript" class="option-button script">
+          <i class="fa-solid fa-subscript"></i>
+        </button> -->
+
+        <!-- List -->
+        <!-- <button id="insertOrderedList" class="option-button">
+          <div class="fa-solid fa-list-ol"></div>
+        </button>
+        <button id="insertUnorderedList" class="option-button">
+          <i class="fa-solid fa-list"></i>
+        </button>
+ -->
+        <!-- Undo/Redo -->
+        <!-- <button id="undo" class="option-button">
+          <i class="fa-solid fa-rotate-left"></i>
+        </button>
+        <button id="redo" class="option-button">
+          <i class="fa-solid fa-rotate-right"></i>
+        </button> -->
+
+		<!--Image-->
+		<!-- <button id="button" class="insertImage">
+			<i  class="fa fa-file-image-o" aria-hidden="true"></i>
+		</button> -->
+       <!-- Link -->
+        <!-- <button id="createLink" class="adv-option-button">
+          <i class="fa fa-link"></i>
+        </button>
+        <button id="unlink" class="option-button">
+          <i class="fa fa-unlink"></i>
+        </button> -->
+
+        <!-- Alignment -->
+        <!-- <button id="justifyLeft" class="option-button align">
+          <i class="fa-solid fa-align-left"></i>
+        </button>
+        <button id="justifyCenter" class="option-button align">
+          <i class="fa-solid fa-align-center"></i>
+        </button>
+        <button id="justifyRight" class="option-button align">
+          <i class="fa-solid fa-align-right"></i>
+        </button>
+        <button id="justifyFull" class="option-button align">
+          <i class="fa-solid fa-align-justify"></i>
+        </button>
+        <button id="indent" class="option-button spacing">
+          <i class="fa-solid fa-indent"></i>
+        </button>
+        <button id="outdent" class="option-button spacing">
+          <i class="fa-solid fa-outdent"></i>
+        </button> -->
+
+        <!-- Headings -->
+        <!-- <select id="formatBlock" class="adv-option-button">
+          <option value="H1">H1</option>
+          <option value="H2">H2</option>
+          <option value="H3">H3</option>
+          <option value="H4">H4</option>
+          <option value="H5">H5</option>
+          <option value="H6">H6</option>
+        </select> -->
+
+        <!-- Font -->
+        <!-- <select id="fontName" class="adv-option-button"></select>
+        <select id="fontSize" class="adv-option-button"></select>
+ -->
+        <!-- Color -->
+        <!-- <div class="input-wrapper">
+          <input type="color" id="foreColor" class="adv-option-button" />
+          <label for="foreColor">Font Color</label>
+        </div>
+        <div class="input-wrapper">
+          <input type="color" id="backColor" class="adv-option-button" />
+          <label for="backColor">Highlight Color</label>
+        </div>
+      </div>
+      <div id="text-input" contenteditable="true"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html> -->
+
+
+
+
+
+
