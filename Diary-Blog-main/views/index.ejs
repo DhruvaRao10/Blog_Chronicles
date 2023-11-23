@@ -18,7 +18,44 @@
             <li><a href="/blogs">Blogs</a></li>
             <li><a href="/about">About</a></li>
             <li><a href="/blog/create">New Blog</a></li>
+           <li> <img src="user.png" class="user-pic" onclick="toggleMenu()"></li>
+          
         </ul>
+        <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+                <div class="user-info">
+                    <img src="user.png" alt="" >
+                    <h3>Harshit</h3>
+                </div>
+                <hr>
+                <a href="" class="sub-menu-link">
+                    <img src="profile.png" alt="">
+                    <p>Edit Profile</p>
+                    <span>></span>
+
+                </a>
+                <a href="" class="sub-menu-link">
+                    <img src="setting.png" alt="">
+                    <p>Setting & Privacy</p>
+                    <span>></span>
+
+                </a>
+                <a href="" class="sub-menu-link">
+                    <img src="help.png" alt="">
+                    <p>Help & Support</p>
+                    <span>></span>
+
+                </a>
+              
+                <a href="" class="sub-menu-link">
+                    <img src="logout.png" alt="">
+                    <p>Logout</p>
+                    <span>></span>
+
+                </a>
+            </div>
+        </div>
+
     </nav>
 
     <div class="blogs_content">
@@ -37,6 +74,12 @@
     </div>
 
 
+<script>
+    let subMenu=document.getElementById("subMenu");
+    function toggleMenu(){
+        subMenu.classList.toggle("open-menu");
+    }
+</script>
 
 
     
