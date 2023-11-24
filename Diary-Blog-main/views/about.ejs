@@ -4,16 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Ninja | <%= title %></title>
+    <title>Blog Chronicles | <%= title %></title>
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
     <nav>
         <div class="site-title">
-            <a href="/"><h1>Blog Ninja</h1></a>
-            <p>A Ninja site</p>
+            <a href="/"><h1>Blog Chronicles</h1></a>
+            <p>A Yggdrasil's site</p>
         </div>
         <ul>
+            <li>
+                <div class="search-container">
+                    <div class="search-header" onclick="toggleSearch()">
+                      <span id="searchText">Search</span>
+                    </div>
+                    <div class="search-expand" id="searchExpand">
+                      <div class="search-close" onclick="toggleSearch()">×</div>
+                      <input type="text" id="searchInput" placeholder="Type your search...">
+                      <button onclick="submitSearch()">Submit</button>
+                    </div>
+                  </div>
+            </li>
             <li><a href="/blogs">Blogs</a></li>
             <li><a href="/about">About</a></li>
             <li><a href="/blog/create">New Blog</a></li>
@@ -38,5 +50,27 @@
         </div>
     </div>
     
+
+
+
+    <script>
+        function toggleSearch() {
+      var expand = document.getElementById("searchExpand");
+      var text = document.getElementById("searchText");
+      text.classList.toggle("expanded");
+      expand.classList.toggle("expanded");
+      if (text.classList.contains("expanded")) {
+        text.textContent = "×";
+      } else {
+        text.textContent = "Search";
+      }
+    }
+
+    function submitSearch() {
+      var searchTerm = document.getElementById("searchInput").value;
+      // Perform search or other actions with searchTerm
+      console.log("Search term:", searchTerm);
+    }
+      </script>
 </body>
 </html>

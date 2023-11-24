@@ -2,7 +2,7 @@ const express= require('express');
 const app= express();
 const mongoose=require('mongoose');
 const Blog =require('./models/blog')
-
+const cheerio = require('cheerio');
 
 //third party middleware
 const morgan=require('morgan');
@@ -97,16 +97,68 @@ app.get('/blogs', (req,res)=>{
     })
 })
 //saving data to the mongodb
+function htmlToText(html) {
+    const $ = cheerio.load(html);
+    return $('body').text();
+}
 app.post('/blogs',(req,res)=>{
+    console.log(req.body);
+    req.body.body=htmlToText(req.body.body);
     const blog=new Blog(req.body) //creating a new instance of Blog schema and passing the submitted data in form of req.body
     blog.save() //saving it to the database
     .then((result)=>{
         res.redirect('/blogs');
     })
     .catch((err)=>{
-        console.log(err);
+        console.log(err);   
     })
 })
+    
+
+
+
+app.post("/search",async(req,res)=>{
+    try{                              
+          
+      console.log(" in search method ") ;
+      console.log(req.body) ; 
+
+      const midstringtitle = req.body.searchInput ;
+      const midstringsnippet = req.body.searchInput ;  
+      const midstringbody = req.body.searchInput ;
+
+      console.log(" before 3 regex patterns");
+      const regexPattern = new RegExp(`.${midstringtitle}.`,'i') ;   
+      const regexPattern1 = new RegExp(`.${midstringsnippet}.`,'i') ;       
+      const regexPattern2 = new RegExp(`.${midstringbody}.`,'i') ; 
+                                                                                                       
+      existingTitle = await Blog.find({ title : {$regex: regexPattern }}) ;
+      existingSnippet = await Blog.find({snippet : {$regex: regexPattern1 }}) ; 
+      existingBody = await Blog.find({ body :  {$regex: regexPattern2 }}) ;  
+
+      const combinedResults = existingTitle.concat(existingSnippet , existingBody);
+    //   console.log(" map print ");
+    //   console.log(Array.from(combinedResults.map(id => combinedResults.find(result => result._id === id))));
+      // Remove duplicates based on a unique identifier (e.g., _id)
+      const uniqueResults = Array.from(new Set(combinedResults.map(result => result._id)))
+                                 .map(id => combinedResults.find(result => result._id === id));
+     if(uniqueResults){
+       console.log(uniqueResults);
+       res.send(uniqueResults); // Send the actual data from the database
+    }
+    else {
+          console.log("Topic could not be found");
+          res.status(404).send("Topic could not be found");
+      }        
+   } 
+   catch{
+          console.error("Error in search route:");
+          res.status(500).send("Internal Server Error");
+   }
+    //mongoose.connection.close();
+})
+
+
 
 app.get('/blogs/:id',(req,res)=>{
     const id=req.params.id;
