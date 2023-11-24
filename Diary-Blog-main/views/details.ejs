@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog Ninja | | <%= title %></title>
     <link rel="stylesheet" href="/styles.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     
 </head>
 <body>
@@ -29,19 +30,38 @@
         <a class="delete" data-doc="<%= blog._id%>">DELETE</a>
     </div>
     <div class="heart-btn">
-        <div class="content">
-            <span class="heart"></span>
-            <span class="like"></span>
-            <span class="numb">12</span>
+        <div class="content_1">
+          <span class="heart"></span>
+          <span class="text">Like</span>
+          <span class="numb"></span>
         </div>
+      </div>
+      <div class="container">
+        <h2>Leave Us a Comment</h2>
+        <form>
+            <textarea placeholder='Add Your Comment'></textarea>
+            <div class="btn">
+                <input type="submit" value='Comment'>
+                <button id='clear'>Cancel</button>
+            </div>
+        </form>
     </div>
+
+    <script src='plugin.js'></script>  
    
   
     
-    <footer>
-        Copyright &copy; Himanshu Patil 2003
-    </footer>
-
+   
+    <script>
+        $(document).ready(function(){
+          $('.content_1').click(function(){
+            $('.content').toggleClass("heart-active")
+            $('.text').toggleClass("heart-active")
+            $('.numb').toggleClass("heart-active")
+            $('.heart').toggleClass("heart-active")
+          });
+        });
+      </script>
 
     <script>
         const trashcan= document.querySelector('a.delete');
