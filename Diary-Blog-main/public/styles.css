@@ -24,7 +24,11 @@ body::before {
   background-image: url(back49.jpg);
   
   background-size: cover;
+<<<<<<< HEAD
   filter: blur(5px); /* Adjust the value to control the intensity of the blur */
+=======
+  filter: blur(2px); /* Adjust the value to control the intensity of the blur */
+>>>>>>> 85f37567654acae218222a9a24f9452f6272d96f
   pointer-events: none; /* Allows clicking through the pseudo-element to the content */
 }
 p, h1, h2, h3, a, ul{
@@ -158,6 +162,7 @@ textarea{
   font-family: 'Amita', cursive;
   font-size:x-large;
 }
+<<<<<<< HEAD
 
 
 
@@ -296,6 +301,8 @@ textarea{
 .sub-menu-link:hover p{
   font-weight: 600;
 }
+=======
+>>>>>>> 85f37567654acae218222a9a24f9452f6272d96f
 .user-pic{
   width:40px;
   border-radius: 50%;
@@ -371,6 +378,7 @@ textarea{
 }
 .sub-menu-link:hover p{
   font-weight: 600;
+<<<<<<< HEAD
 }
 .user-pic{
   width:40px;
@@ -569,4 +577,6 @@ button
 .btn
 {
     display: none
+=======
+>>>>>>> 85f37567654acae218222a9a24f9452f6272d96f
 }

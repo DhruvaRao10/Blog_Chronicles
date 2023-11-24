@@ -10,7 +10,7 @@ const morgan=require('morgan');
 //setting view engine as ejs
 app.set('view engine', 'ejs');
 
-const dbURI='mongodb://localhost:27017/blog'
+const dbURI= "mongodb+srv://hv27102000:vNbuux2UI35W1d2s@cluster0.f9cdeng.mongodb.net/"
 
 app.listen(300);
 //connecting database
