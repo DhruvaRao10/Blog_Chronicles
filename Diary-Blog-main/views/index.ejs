@@ -187,6 +187,7 @@ function submitSearch() {
 
     <div class="blogs_content">
         <h2>All Blogs</h2>
+        <div class="searchContainer"></div>
         <% if(blogs.length>0 ){%>
             <% blogs.forEach(blog =>{ %>
                 <a href="/blogs/<%= blog._id %>">
@@ -218,11 +219,59 @@ function submitSearch() {
       }
     }
 
-    function submitSearch() {
-      var searchTerm = document.getElementById("searchInput").value;
-      // Perform search or other actions with searchTerm
-      console.log("Search term:", searchTerm);
+    async function submitSearch() {
+            var searchTerm = document.getElementById("searchInput").value;
+
+            try {
+              const response = await fetch('/search', {
+              method: 'POST',
+              headers: {
+              'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ searchInput: searchTerm }),
+              });
+
+              if (response.ok) {
+                const data = await response.json();
+                console.log("Search results:", data);
+              // Update your UI with the search results if needed
+              // For example, render the results on the page
+              renderSearchResults(data);
+              } else {
+                  console.error("Search request failed:", response.statusText);
+              }
+              } catch (error) {
+                    console.error("Error during search request:", error);
+                }
+   }
+
+// Function to render search results on the page
+             function renderSearchResults(results) {
+  // Assuming you have a container element to display search results
+                  var resultsContainer = document.getElementsByClassName('searchContainer');
+                  
+                  if (resultsContainer !== null) {
+                    if (results.length > 0) {
+                   results.forEach(blog => {
+                 var resultElement = document.createElement('div');
+               resultElement.innerHTML = `
+                 <a href="/blogs/${blog._id}">
+                 <h3 class="title">${blog.title}</h3>
+                <p class="snippet">${blog.snippet}</p>
+                <p class="body">${blog.body}
+              </a>
+          `;
+             resultsContainer.appendChild(resultElement);
+       });
+     } else {
+         resultsContainer.innerHTML = "<p>No results found.</p>";
+  }
+    } else {
+        console.log('Results container not found');
     }
+
+                
+}
 </script>
 
 
