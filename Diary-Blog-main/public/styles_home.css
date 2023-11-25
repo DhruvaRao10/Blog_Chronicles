@@ -125,7 +125,8 @@ section{
     padding: 20px;
     background-color: rgb(45,45,45);
     border-radius: 16px;
-    box-shadow: 0 0 10px rgba(228, 220, 220, 0.1);
+    box-shadow: 0 0 10px white;
+    margin-bottom : 50px;
   }
   
   .topic {

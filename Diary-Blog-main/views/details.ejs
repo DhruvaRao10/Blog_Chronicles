@@ -1,55 +1,155 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Ninja | | <%= title %></title>
-    <link rel="stylesheet" href="/styles.css">
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Blog Chronicles | | <%= title %></title>
+      <link rel="stylesheet" href="/styles.css">
+      <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+      
+  </head>
+  <body>
+      <nav>
+          <div class="site-title">
+              <a href="/"><h1>Blog Ninja</h1></a>
+              <p>A Yggdrasil's site</p>
+          </div>
+          <ul>
+              <li>
+                  <div class="search-container">
+                      <div class="search-header" onclick="toggleSearch()">
+                        <span id="searchText">Search</span>
+                      </div>
+                      <div class="search-expand" id="searchExpand">
+                        <div class="search-close" onclick="toggleSearch()">×</div>
+                        <input type="text" id="searchInput" placeholder="Type your search...">
+                        <button onclick="submitSearch()">Submit</button>
+                      </div>
+                    </div>
+              </li>
+              <li><a href="/blogs">Blogs</a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/blog/create">New Blog</a></li>
+          </ul>
+      </nav>
+
+      <div class="details content ">
+          <h2><%= blog.title %></h2>
+          <div class="content">
+              <p><%= blog.body %></p>
+          </div>
+          <a class="delete" data-doc="<%= blog._id%>">DELETE</a>
+
+
+          <div class="comment_section">
+            <div class="comment-container">
+              <h2>Leave Us a Comment</h2>
+              <form>
+                  <textarea placeholder='Add Your Comment'></textarea>
+                  <div class="btn">
+                      <input type="submit" value='Comment'>
+                      <button id='clear'>Cancel</button>
+                  </div>
+              </form>
+          </div>
     
-</head>
-<body>
-    <nav>
-        <div class="site-title">
-            <a href="/"><h1>Blog Ninja</h1></a>
-            <p>A Ninja site </p>
-        </div>
-        <ul>
-            <li><a href="/blogs">Blogs</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/blog/create">New Blog</a></li>
-        </ul>
-    </nav>
+          <div class="heart-btn">
+            <div class="content_1">
+              <div class="heart"></div>
+              <div class="text">Like</div>
+              <div class="numb"></div>
+            </div>
+          </div>
+          </div>
+      </div>
 
-    <div class="details content ">
-        <h2><%= blog.title %></h2>
-        <div class="content">
-            <p><%= blog.body %></p>
-        </div>
-        <a class="delete" data-doc="<%= blog._id%>">DELETE</a>
-    </div>
-    
-    <footer>
-        Copyright &copy; Himanshu Patil 2003
-    </footer>
+      
+
+      
+
+    <!-- <script src='plugin.js'></script> -->
 
 
-    <script>
-        const trashcan= document.querySelector('a.delete');
-        trashcan.addEventListener('click', (e)=>{
-            const endpoint=`/blogs/${trashcan.dataset.doc}`;
-            fetch(endpoint,{
-            method:'DELETE'
-        })
-        .then((response)=>response.json())
-        .then((data)=>
-            window.location.href = data.redirect
-        )
-        .catch(err=>{
-            console.log(err);
-        })
-        })
+
+
+
+      
+      <footer>
+          Copyright &copy; Himanshu Patil 2003
+      </footer>
+
+
+      <script>
+
+          $(document).ready(function(){
+            $('.content_1').click(function(){
+              $('.content').toggleClass("heart-active")
+              $('.text').toggleClass("heart-active")
+              $('.numb').toggleClass("heart-active")
+              $('.heart').toggleClass("heart-active")
+            });
+          });
+
+          var feild = document.querySelector('textarea');
+          var backUp = feild.getAttribute('placeholder');
+          var btn = document.querySelector('.btn');
+          var clear = document.getElementById('clear')
+
+          feild.onfocus = function(){
+              this.setAttribute('placeholder', '');
+              this.style.borderColor = '#333';
+              btn.style.display = 'block'
+          }
+
+          feild.onblur = function(){
+              this.setAttribute('placeholder',backUp);
+              this.style.borderColor = '#aaa'
+          }
+
+          clear.onclick = function(){
+              btn.style.display = 'none';
+              feild.value = '';
+          }
+
+
+          const trashcan= document.querySelector('a.delete');
+          trashcan.addEventListener('click', (e)=>{
+              const endpoint=`/blogs/${trashcan.dataset.doc}`;
+              fetch(endpoint,{
+              method:'DELETE'
+          })
+          .then((response)=>response.json())
+          .then((data)=>
+              window.location.href = data.redirect
+          )
+          .catch(err=>{
+              console.log(err);
+          })
+          })
+
+
+
         
-    </script>
-</body>
-</html>
+          function toggleSearch() {
+        var expand = document.getElementById("searchExpand");
+        var text = document.getElementById("searchText");
+        text.classList.toggle("expanded");
+        expand.classList.toggle("expanded");
+        if (text.classList.contains("expanded")) {
+          text.textContent = "×";
+        } else {
+          text.textContent = "Search";
+        }
+      }
+
+      function submitSearch() {
+        var searchTerm = document.getElementById("searchInput").value;
+        // Perform search or other actions with searchTerm
+        console.log("Search term:", searchTerm);
+      }
+        
+          
+      </script>
+  </body>
+  </html>
