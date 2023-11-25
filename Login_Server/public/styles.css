@@ -21,10 +21,10 @@ body::before {
   bottom: 0;
   left: 0;
   z-index: -1; /* Place the pseudo-element behind the content */
-  background-image: url(back23.jpg);
+  background-image: url(back49.jpg);
   
   background-size: cover;
-  filter: blur(0px); /* Adjust the value to control the intensity of the blur */
+  filter: blur(2px); /* Adjust the value to control the intensity of the blur */
   pointer-events: none; /* Allows clicking through the pseudo-element to the content */
 }
 p, h1, h2, h3, a, ul{
@@ -100,7 +100,7 @@ h3{
 }
 /* create styles */
 .create-blog form{
-  max-width: 650px;
+  max-width: 600px;
   margin: 0 auto;
 }
 .create-blog input,
@@ -109,7 +109,7 @@ h3{
   width: 100%;
   margin: 10px 0;
   padding: 8px;
-  border-radius: 11px;
+  border-radius: 8px;
 }
 .create-blog label{
   display: block;
@@ -158,55 +158,199 @@ textarea{
   font-family: 'Amita', cursive;
   font-size:x-large;
 }
-
-
-
-.search-container {
-  text-align: center;
-  margin-top: 50px;
-}
-
-.search-header {
-  padding: 8px 16px;
-  color: #777;
+.user-pic{
+  width:40px;
+  border-radius: 50%;
   cursor: pointer;
-  display: inline-block;
-  border-radius: 10px;
-  transition: background-color 0.3s ease;
+  margin-left: 30px;
 }
 
-.search-header:hover {
-  background-color: white;
-}
-
-.search-expand {
+.sub-menu-wrap{
+  position: absolute;
+  top:22%;
+  right:2%;
+  width:320px;
+  max-height: 0px;
   overflow: hidden;
-  transition: max-height 0.3s ease-out;
-  max-height: 0;
-}
-
-.expanded {
-  max-height: 200px; 
-  transition: max-height 1s ease-in;
-  /* background-color: #fff;   */
-  /* border: 1px solid #ddd; */
-  border-radius: 5px;
-  margin-top: 10px;
+  transition: max-height 0.5s;
 
 }
 
-.search-close {
-  cursor: pointer;
-  float: right;
+.sub-menu-wrap.open-menu{
+  max-height: 400px;
+}
+
+.sub-menu{
+  background: #bab2b2;
+  padding: 20px;
+  margin: 10px;
+
+}
+.user-info{
+  display:flex;
+  align-items: center;
+
+}
+.user-info h3{
+  font-weight: 500;
+}
+.user-info img{
+  width: 60px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.sub-menu hr{
+  border: 0;
+  height: 1px;
+  width: 100%;
+  background: #ccc;
+  margin: 15px 0 10px;
+
+}
+.sub-menu-link{
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #525252;
+  margin: 12px 0;
+}
+.sub-menu-link p{
+  width:100%;
+}
+.sub-menu-link img{
+  width: 40px;
+  background: #e5e5e5;
+  border-radius: 50%;
   padding: 8px;
-  font-size: 20px;
-  color: #888;
+  margin-right: 15px;
+}
+.sub-menu-link span{
+  font-size: 22px;
+  transition:transform 0.5s;
+
+}
+.sub-menu-link:hover span{
+  transform: translateX(5px);
+}
+.sub-menu-link:hover p{
+  font-weight: 600;
+}
+.heart-btn{
+
+  position: relative;
+  top: 100px;
+  left: 45%;
+  transform: translate(-50%,-50%);
+}
+.content_1{
+  padding: 13px 16px;
+  display: flex;
+  border: 2px solid #eae2e1;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.content_1.heart-active{
+  border-color: #f9b9c4;
+  background: #fbd0d8;
 }
 
-.search-close:hover {
-  color: #555;
+.heart{
+  position: absolute;
+  background: url("../public/hrt.png") no-repeat;
+  background-position: left;
+  background-size: 2900%;
+  height: 90px;
+  width: 90px;
+  top: 50%;
+  left: 21%;
+  transform: translate(-50%,-50%);
+}
+.text{
+  font-size: 21px;
+  margin-left: 30px;
+  color: grey;
+  font-family: 'Montserrat',sans-serif;
+}
+.numb:before{
+  content: '12';
+  font-size: 21px;
+  margin-left: 7px;
+  font-weight: 600;
+  color: #9C9496;
+  font-family: sans-serif;
+}
+.numb.heart-active:before{
+  content: '13';
+  color: #000;
+}
+.text.heart-active{
+  color: #000;
+}
+.heart.heart-active{
+  animation: animate .8s steps(28) 1;
+  background-position: right;
+}
+@keyframes animate {
+  0%{
+    background-position: left;
+  }
+  100%{
+    background-position: right;
+  }
 }
 
-.search-header.expanded {
-  background-color: #e74c3c;
+.comment_section{
+  display: flex;
+  margin-top: 20px;
+}
+
+.comment-container
+{
+    
+    width: 600px;
+    border: 2px solid #333;
+    padding: 15px 10px;
+}
+.comment-container h2
+{
+    text-align: center;
+    margin-bottom: 15px
+}
+textarea
+{
+    height: 20px;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #aaa;
+    background-color: transparent;
+    margin-bottom: 10px;
+    resize: none;
+    outline: none;
+    transition: .5s
+}
+
+input[type="submit"], button
+{
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+}
+input[type="submit"]
+{
+    color: #fff;
+    background-color: #273c75
+}
+button
+{
+    color: #333;
+    background-color: transparent
+}
+.btn
+{
+    display: none
 }
