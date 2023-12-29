@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title class="">Bond-Diaries | | <%= title %></title>
+    <link rel="stylesheet" href="/styles.css">
+    
+</head>
+<body>
+    <div class="account-section">
+        <div class="account-icon" onclick="toggleDropdown()">
+          <!-- You can replace this with your account icon -->
+          Account
+        </div>
+        <div class="dropdown-content" id="dropdownContent">
+          <a href="./index.ejs">View Blogs</a>
+          <a href="./home.ejs">Search Blog</a>
+          <a href="./home.ejs">Logout</a>
+        </div>
+      </div>
+    <nav>
+        <div class="site-title">
+            <a href="/"><h1>Blog Chronicles</h1></a>
+            <p>A Yggdrasil site </p>
+        </div>
+        <ul>
+            <li>
+                <!-- <form action="/search" method="POST"> -->
+                    <div class="search-container">
+                        <div class="search-header" onclick="toggleSearch()">
+                            <span id="searchText">Search</span>
+                        </div>
+                        <div class="search-expand" id="searchExpand">
+                            <div class="search-close" onclick="toggleSearch()">×</div>
+                            <form onsubmit="submitSearch(); return false;"> <!-- Prevent default form submission -->
+                                <input type="text" id="searchInput" name="search" placeholder="Type your search...">
+                                <button type="submit">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="blogs_content" id="searchResultsContainer">
+                        <!-- Search results will be rendered here -->
+                    <script>
+                            
+                    function toggleDropdown() {
+                       var dropdown = document.getElementById("dropdownContent");
+                       dropdown.classList.toggle("show");
+                  }
+      
+              window.onclick = function(event) {
+                 if (!event.target.matches('.account-icon')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                   if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                  }
+               }
+             }
+          }
+     
+
+
+              function toggleSearch() {
+                     var expand = document.getElementById("searchExpand");
+                     var text = document.getElementById("searchText");
+                     text.classList.toggle("expanded");
+                     expand.classList.toggle("expanded");
+                   if (text.classList.contains("expanded")) {
+                       text.textContent = "×";
+                  } else {
+                     text.textContent = "Search";
+               }
+          }
+
+// function submitSearch() {
+//     var searchTerm = document.getElementById("searchInput").value;
+//     // Perform search or other actions with searchTerm
+//      console.log("Search term:", searchTerm);
+// }
+
+// Function to submit the search
+            async function submitSearch() {
+                    var searchTerm = document.getElementById("searchInput").value;
+
+                   try {
+                      const response = await fetch('/search', {
+                      method: 'POST',
+                      headers: {
+                     'Content-Type': 'application/json',
+                 },
+                        body: JSON.stringify({ searchInput: searchTerm }),
+             });
+
+                 if (response.ok) {
+                   const data = await response.json();
+                   console.log("Search results:", data);
+                  // Update your UI with the search results if needed
+                  // For example, render the results on the page
+                  renderSearchResults(data);
+             } else {
+                 console.error("Search request failed:", response.statusText);
+          }
+          } catch (error) {
+                console.error("Error during search request:", error);
+           }
+   }
+
+// Function to render search results on the page
+             function renderSearchResults(results) {
+  // Assuming you have a container element to display search results
+                  var resultsContainer = document.getElementById('searchResultsContainer');
+                  resultsContainer.innerHTML = ""; // Clear existing content
+
+                if (results.length > 0) {
+                   results.forEach(blog => {
+                 var resultElement = document.createElement('div');
+                      resultElement.innerHTML = `
+                             <a href="/blogs/${blog._id}">
+                             <h3 class="title">${blog.title}</h3>
+                             <p class="snippet">${blog.snippet}</p>
+                             <p class="body">${blog.body}
+                              </a>
+                       `;
+                             resultsContainer.appendChild(resultElement);
+               });
+              } else {
+                     resultsContainer.innerHTML = "<p>No results found.</p>";
+             }
+}
+
+                        </script>
+                    </div>
+                    
+                </form>
+            </li>
+            
+            <li><a href="/blogs">Blogs</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/blog/create">New Blog</a></li>
+            <li>
+                
+            </li>
+        </ul>
+
+        
+    </nav>
+
+    <div class="blogs_content">
+        <h2>All Blogs</h2>
+        <% if(blogs.length>0 ){%>
+            <% blogs.forEach(blog =>{ %>
+                <a href="/blogs/<%= blog._id %>">
+                <h3 class="title"><%= blog.title %></h3>
+                <p class="snippet"><%= blog.snippet %></p>
+                </a>
+            <% }) %>
+        <%} else {  %>
+            <p>There are no blogs to display.......</p>
+
+        <% } %>
+    </div>
+
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title class="">Bond-Diaries | | <%= title %></title>
+    <link rel="stylesheet" href="/styles.css">
+    
+</head>
+<body>
+    <div class="account-section">
+        <div class="account-icon" onclick="toggleDropdown()">
+          Account
+        </div>
+        <div class="dropdown-content" id="dropdownContent">
+          <a href="./index.ejs">View Blogs</a>
+          <a href="./home.ejs">Search Blog</a>
+          <a href="./home.ejs">Logout</a>
+        </div>
+      </div>
+    <nav>
+        <div class="site-title">
+            <a href="/"><h1>Blog Ninja</h1></a>
+            <p>A Ninja site </p>
+        </div>
+        <ul>
+            <li>
+                <div class="search-container">
+                    <div class="search-header" onclick="toggleSearch()">
+                      <span id="searchText">Search</span>
+                    </div>
+                    <div class="search-expand" id="searchExpand">
+                      <div class="search-close" onclick="toggleSearch()">×</div>
+                      <input type="text" id="searchInput" placeholder="Type your search...">
+                      <button onclick="submitSearch()">Submit</button>
+                    </div>
+                  </div>
+            </li>
+            <li><a href="/blogs">Blogs</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/blog/create">New Blog</a></li>
+            <li>
+                
+            </li>
+        </ul>
+
+        
+    </nav>
+
+    <div class="blogs_content">
+        <h2>All Blogs</h2>
+        <% if(blogs.length>0 ){%> 
+            <% blogs.forEach(blog =>{ %>
+                <a href="/blogs/<%= blog._id %>">
+                <h3 class="title"><%= blog.title %></h3>
+                <p class="snippet"><%= blog.snippet %></p>
+                </a>
+            <% }) %>
+        <%} else {  %>
+            <p>There are no blogs to display.......</p>
+
+        <% } %>
+    </div>
+
+
+
+
+    
+    <script>
+        function toggleDropdown() {
+          var dropdown = document.getElementById("dropdownContent");
+          dropdown.classList.toggle("show");
+        }
+      
+        window.onclick = function(event) {
+          if (!event.target.matches('.account-icon')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (var i = 0; i < dropdowns.length; i++) {
+              var openDropdown = dropdowns[i];
+              if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+              }
+            }
+          }
+        }
+     
+
+
+    function toggleSearch() {
+  var expand = document.getElementById("searchExpand");
+  var text = document.getElementById("searchText");
+  text.classList.toggle("expanded");
+  expand.classList.toggle("expanded");
+  if (text.classList.contains("expanded")) {
+    text.textContent = "×";
+  } else {
+    text.textContent = "Search";
+  }
+}
+
+function submitSearch() {
+  var searchTerm = document.getElementById("searchInput").value;
+  // Perform search or other actions with searchTerm
+  console.log("Search term:", searchTerm);
+}
+</script>
+  
+    <footer>
+        Copyright &copy; Himanshu Patil 2003
+    </footer>
+</body>
+</html> -->
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title class="">Bond-Diaries | | <%= title %></title>
+    <link rel="stylesheet" href="/styles.css">
+    
+</head>
+<body>
+    <nav>
+        <div class="site-title">
+            <a href="/"><h1>Blog Ninja</h1></a>
+            <p>A Ninja site </p>
+        </div>
+        <ul>
+          <li>
+            <div class="search-container">
+                <div class="search-header" onclick="toggleSearch()">
+                  <span id="searchText">Search</span>
+                </div>
+                <div class="search-expand" id="searchExpand">
+                  <div class="search-close" onclick="toggleSearch()">×</div>
+                  <input type="text" id="searchInput" placeholder="Type your search...">
+                  <button onclick="submitSearch()">Submit</button>
+                </div>
+              </div>
+        </li>
+            <li><a href="/blogs">Blogs</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/blog/create">New Blog</a></li>
+           <li> <img src="../public/user.jpeg" class="user-pic" onclick="toggleMenu()"></li>
+          
+        </ul>
+        <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+                <div class="user-info">
+                    <img src="../public/user.jpeg" alt="" >
+                    <h3>Harshit</h3>
+                </div>
+                <hr>
+                <a href="" class="sub-menu-link">
+                    <img src="../public/profile.jpeg" alt="">
+                    <p>Edit Profile</p>
+                    <span>></span>
+
+                </a>
+                <a href="" class="sub-menu-link">
+                    <img src="../public/setting.jpeg" alt="">
+                    <p>Setting & Privacy</p>
+                    <span>></span>
+
+                </a>
+                <a href="" class="sub-menu-link">
+                    <img src="../public/help.jpeg" alt="">
+                    <p>Help & Support</p>
+                    <span>></span>
+
+                </a>
+              
+                <a href="" class="sub-menu-link">
+                    <img src="../public/logout.jpeg" alt="">
+                    <p>Logout</p>
+                    <span>></span>
+
+                </a>
+            </div>
+        </div>
+
+    </nav>
+
+    <div class="blogs_content">
+        <h2>All Blogs</h2>
+        <div class="searchContainer"></div>
+        <% if(blogs.length>0 ){%>
+            <% blogs.forEach(blog =>{ %>
+                <a href="/blogs/<%= blog._id %>">
+                <h3 class="title"><%= blog.title %></h3>
+                <p class="snippet"><%= blog.snippet %></p>
+                </a>
+            <% }) %>
+        <%} else {  %>
+            <p>There are no blogs to display.......</p>
+
+        <% } %>
+    </div>
+
+
+<script>
+    let subMenu=document.getElementById("subMenu");
+    function toggleMenu(){
+        subMenu.classList.toggle("open-menu");
+    }
+    function toggleSearch() {
+      var expand = document.getElementById("searchExpand");
+      var text = document.getElementById("searchText");
+      text.classList.toggle("expanded");
+      expand.classList.toggle("expanded");
+      if (text.classList.contains("expanded")) {
+        text.textContent = "×";
+      } else {
+        text.textContent = "Search";
+      }
+    }
+
+    async function submitSearch() {
+            var searchTerm = document.getElementById("searchInput").value;
+
+            try {
+              const response = await fetch('/search', {
+              method: 'POST',
+              headers: {
+              'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ searchInput: searchTerm }),
+              });
+
+              if (response.ok) {
+                const data = await response.json();
+                console.log("Search results:", data);
+              // Update your UI with the search results if needed
+              // For example, render the results on the page
+              renderSearchResults(data);
+              } else {
+                  console.error("Search request failed:", response.statusText);
+              }
+              } catch (error) {
+                    console.error("Error during search request:", error);
+                }
+   }
+
+// Function to render search results on the page
+             function renderSearchResults(results) {
+  // Assuming you have a container element to display search results
+                  var resultsContainer = document.getElementsByClassName('searchContainer');
+                  
+                  if (resultsContainer !== null) {
+                    if (results.length > 0) {
+                   results.forEach(blog => {
+                 var resultElement = document.createElement('div');
+               resultElement.innerHTML = `
+                 <a href="/blogs/${blog._id}">
+                 <h3 class="title">${blog.title}</h3>
+                <p class="snippet">${blog.snippet}</p>
+                <p class="body">${blog.body}
+              </a>
+          `;
+             resultsContainer.appendChild(resultElement);
+       });
+     } else {
+         resultsContainer.innerHTML = "<p>No results found.</p>";
+  }
+    } else {
+        console.log('Results container not found');
+    }
+
+                
+}
+</script>
+
+
+    
+
+    <footer>
+        Copyright &copy; Himanshu Patil 2003
+    </footer>
+</body>
+</html> -->
