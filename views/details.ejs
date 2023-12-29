@@ -25,7 +25,12 @@
         <h2><%= blog.title %></h2>
         <div class="content">
             <p><%= blog.body %></p>
+            <br><br>
+            <div class="blog-img">
+                <img src="<%= blog.imageUrl %>" alt="" class="blog-img">
+            </div>
         </div>
+        
         <a class="delete" data-doc="<%= blog._id%>">DELETE</a>
     </div>
     

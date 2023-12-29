@@ -22,15 +22,41 @@
 
     <div class="create-blog content">
         
-        <form action="/blogs" method="POST">
+        <form action="/blogs" method="POST" enctype="multipart/form-data">
             <label for="title">Blog title:</label>
         <input type="text"  id="title" name="title" required>
         <label for="snippet">Blog snippet:</label>
         <input type="text"  id="snippet" name="snippet" required>
         <label for="body">Blog body:</label>
         <textarea id="body" name="body" required></textarea>
+        <input type="file" name="image" id="imageFile">
         <button>SUBMIT</button>
         </form>
     </div>
+
+
+    <script>
+        async function uploadImage() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append('image', file);
+
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    console.log('File uploaded successfully.');
+                } else {
+                    console.error('Failed to upload file.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
 </body>
 </html>

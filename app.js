@@ -3,20 +3,29 @@ const app= express();
 const mongoose=require('mongoose');
 const Blog =require('./models/blog')
 
-
+require("dotenv").config();
 //third party middleware
 const morgan=require('morgan');
+const fileupload = require("express-fileupload");
+app.use(fileupload({
+    useTempFiles : true,
+    tempFileDir : '/tmp/'
+}));
+app.use(express.json());
 
 //setting view engine as ejs
 app.set('view engine', 'ejs');
 
-const dbURI='mongodb://localhost:27017/blog'
+const dbURI='mongodb://localhost:27017/blogImageNew'
 
-app.listen(300);
+app.listen(3003);
 //connecting database
 mongoose.connect(dbURI, {useNewUrlParser:true , useUnifiedTopology:true})
 .then((result)=> console.log('connected to db'))
 .catch((err)=> console.log(err))
+
+const cloudinaryM = require("./config/cloudinary");
+cloudinaryM.cloudinaryConnect();
 
 
 // app.use((req,res)=>{
@@ -34,6 +43,7 @@ app.use(express.static('public'));
 app.use(express.urlencoded({extended:true}));   //used for accepting form data in backend imp
 app.use(morgan('dev')); // not necessary
 
+const cloudinary = require("cloudinary").v2;
 
 //******/storing in the database*****
 // app.get('/add-blog', (req,res)=>{
@@ -71,7 +81,7 @@ app.use(morgan('dev')); // not necessary
             //     // {title: 'How to defeat browser', snippet: 'hferb iikukr ulurgt  iuk'}
             // ]
             // res.render('index' , {title:'Home', blogs})
-            res.redirect('/blogs')
+            res.redirect('/home')
         })
     app.get('/about',(req,res)=>{ 
         // res.send('<H1>Hello At ABOUT PAGE</H1>')   
@@ -95,16 +105,57 @@ app.get('/blogs', (req,res)=>{
         console.log(err);
     })
 })
+
+async function uploadFileToCloudinary(file, folder){
+    const options = {folder};
+    // console.log("TempFilePath", file.tempFilePath);
+    
+    // console.log(options);
+    options.resource_type = "auto"; 
+    return await cloudinary.uploader.upload(file.tempFilePath, options);
+}
+
 //saving data to the mongodb
-app.post('/blogs',(req,res)=>{
-    const blog=new Blog(req.body) //creating a new instance of Blog schema and passing the submitted data in form of req.body
-    blog.save() //saving it to the database
-    .then((result)=>{
-        res.redirect('/blogs');
-    })
-    .catch((err)=>{
-        console.log(err);
-    })
+app.post('/blogs',async(req,res)=>{
+
+    const {title,snippet, body} = req.body;
+    const file = req.files.image;
+        console.log(title);
+        console.log(snippet);
+        console.log(body);
+        console.log(file);
+     //saving it to the database
+
+        try{
+
+            //upload to cloudonary
+            const response = await uploadFileToCloudinary(file, "himanshu");
+            console.log(response);
+            
+            const fileData = await Blog.create({
+                title,snippet, body,
+                imageUrl:response.secure_url,
+            })
+            .then((result)=>{
+                res.redirect('/blogs');
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+
+            
+
+        }
+        catch(err){
+            console.log(err);
+            return res.status(400).json({
+                success:false,
+                message:'Something went wrong in uploading image file'
+            })
+
+        }
+
+
 })
 
 app.get('/blogs/:id',(req,res)=>{

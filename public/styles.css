@@ -20,10 +20,10 @@ body::before {
   bottom: 0;
   left: 0;
   z-index: -1; /* Place the pseudo-element behind the content */
-  background-image: url(back23.jpg);
+  background-image: url(back49.jpg);
   
   background-size: cover;
-  filter: blur(0px); /* Adjust the value to control the intensity of the blur */
+  filter: blur(3px); /* Adjust the value to control the intensity of the blur */
   pointer-events: none; /* Allows clicking through the pseudo-element to the content */
 }
 p, h1, h2, h3, a, ul{
@@ -70,8 +70,15 @@ h3{
   margin-bottom: 8px;
 }
 .content{
-  margin-left: 20px;
+  margin-left: 20px;  
 }
+
+.blog-img{
+ 
+  height: 300px;
+  width: 500px;
+}
+
 /* index styles */
 .blogs_content a{
   display: block;
@@ -89,6 +96,9 @@ h3{
   border-radius: 50%;
   padding: 8px;
 }
+
+
+
 .delete:hover{
   cursor: pointer;
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
