@@ -155,6 +155,21 @@ app.post('/blogs',async(req,res)=>{
 
         }
 
+        // LOCAL SERVER UPLOAD
+        try{
+
+            //create path where need to be stored on server
+            let path = __dirname + "/files/"+ Date.now() + `.${file.name.split('.')[1]}`// + extension
+            // console.log("PATH", path);
+
+            //add path to the move function
+            file.mv(path, (err)=>{
+                console.log(err);   
+            });
+        }
+        catch(err){
+            console.log(err);
+        }
 
 })
 
