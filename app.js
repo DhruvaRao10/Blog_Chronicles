@@ -118,32 +118,24 @@ async function uploadFileToCloudinary(file, folder){
 //saving data to the mongodb
 app.post('/blogs',async(req,res)=>{
 
+    console.log(req);
     const {title,snippet, body} = req.body;
-    const file = req.files.image;
+    const imagefile = req.files.image;
+    const videofile = req.files.video;
+    let imagelink,videolink;
         console.log(title);
         console.log(snippet);
         console.log(body);
-        console.log(file);
+        console.log(imagefile);
+        console.log(videofile);
      //saving it to the database
 
+
+        //UPLOAD IMAGE TO CLOUDINARY
         try{
 
-            //upload to cloudonary
-            const response = await uploadFileToCloudinary(file, "himanshu");
-            console.log(response);
-            
-            const fileData = await Blog.create({
-                title,snippet, body,
-                imageUrl:response.secure_url,
-            })
-            .then((result)=>{
-                res.redirect('/blogs');
-            })
-            .catch((err)=>{
-                console.log(err);
-            })
-
-            
+            imagelink = await uploadFileToCloudinary(imagefile, "himanshu");
+            console.log("Image Response :",imagelink);       
 
         }
         catch(err){
@@ -152,24 +144,69 @@ app.post('/blogs',async(req,res)=>{
                 success:false,
                 message:'Something went wrong in uploading image file'
             })
-
         }
 
-        // LOCAL SERVER UPLOAD
+        //video upload to cloudinary
+        try{
+
+            videolink = await uploadFileToCloudinary(videofile, "himanshu");
+            console.log("Video Response :" ,videolink);            
+
+        }
+        catch(err){
+            console.log(err);
+            return res.status(400).json({
+                success:false,
+                message:'Something went wrong in uploading video file'
+            })
+        }
+
+
+        // LOCAL SERVER UPLOAD FOR IMAGE
         try{
 
             //create path where need to be stored on server
-            let path = __dirname + "/files/"+ Date.now() + `.${file.name.split('.')[1]}`// + extension
+            let path = __dirname + "/imageFiles/"+ Date.now() + `.${imagefile.name.split('.')[1]}`// + extension
             // console.log("PATH", path);
 
             //add path to the move function
-            file.mv(path, (err)=>{
+            imagefile.mv(path, (err)=>{
                 console.log(err);   
             });
         }
         catch(err){
             console.log(err);
         }
+
+
+        // LOCAL SERVER UPLOAD FOR VIDEO
+        try{
+
+            //create path where need to be stored on server
+            let path = __dirname + "/videoFiles/"+ Date.now() + `.${videofile.name.split('.')[1]}`// + extension
+            // console.log("PATH", path);
+
+            //add path to the move function
+            videofile.mv(path, (err)=>{
+                console.log(err);   
+            });
+        }
+        catch(err){
+            console.log(err);
+        }
+
+        //make FINAL entry in database
+        const fileData = await Blog.create({
+            title,snippet, body,
+            imageUrl:imagelink.secure_url,
+            videoUrl:videolink.secure_url,
+        })
+        .then((result)=>{
+            res.redirect('/blogs');
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
 
 })
 

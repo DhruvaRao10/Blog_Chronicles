@@ -15,24 +15,32 @@
             <p>A Ninja site </p>
         </div>
         <ul>
-            <li><a href="/">Blogs</a></li>
+            <li><a href="/blogs">Blogs</a></li>
             <li><a href="/about">About</a></li>
             <li><a href="/blog/create">New Blog</a></li>
         </ul>
     </nav>
 
     <div class="details content ">
-        <h2><%= blog.title %></h2>
-        <div class="content">
+        <h2 class="blog-title" ><%= blog.title %></h2>
+        <div class="content blog-body">
             <p><%= blog.body %></p>
-            <br><br>
+            <br>
+        </div>
+        <div class="media-wrapper">
             <div class="blog-img">
-                <img src="<%= blog.imageUrl %>" alt="" class="blog-img">
+                <img src="<%= blog.imageUrl %>" alt="" >
             </div>
+           <% if( blog.videoUrl != ""){    %>
+                <div class="blog-video">
+                    <video controls src="<%= blog.videoUrl %>" alt="" >
+                </div>
+            <% } %>
         </div>
         
-        <a class="delete" data-doc="<%= blog._id%>">DELETE</a>
+        
     </div>
+    <a class="delete     button" data-doc="<%= blog._id%>">DELETE</a>
     
     <footer>
         Copyright &copy; Himanshu Patil 2003
