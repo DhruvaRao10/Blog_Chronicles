@@ -73,10 +73,50 @@ h3{
   margin-left: 20px;  
 }
 
-.blog-img{
- 
-  height: 300px;
-  width: 500px;
+.blog-title {
+  max-width: 100%;
+  font-size: 2.5em; /* Adjust the font size as needed */
+  font-weight: bold;
+  color: #333; /* Title text color */
+  background-color: #777; /* Highlight background color */
+  padding: 10px 20px; /* Padding for the highlighted title */
+  border-radius: 8px; /* Rounded corners */
+  text-align: center; /* Center the title */
+}
+
+.blog-body p {
+  font-family: 'Arial', sans-serif; /* Change the font-family to a professional-looking font */
+  font-size: 1.1em; /* Adjust the font size as needed */
+  line-height: 1.6; /* Line spacing */
+  text-align: justify; /* Justify the text for a professional appearance */
+  margin-bottom: 20px; /* Space between paragraphs */
+}
+
+.media-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.blog-img,
+.blog-video {
+    width: calc(50% - 10px); /* Adjust the width and margin as needed */
+    margin-bottom: 20px;
+}
+
+.blog-img img,
+.blog-video video {
+    max-width: 100%;
+    height: auto;
+}
+
+.blog-img img {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: 310px; /* Adjust this value for the maximum height of the image */
+  object-fit:contain;
 }
 
 /* index styles */
@@ -89,20 +129,70 @@ h3{
 .blogs_content a:hover h3{
   color: crimson;
 }
-.delete{
+/* .delete{
   position: absolute;
   top:0;
   right: 0;
-  border-radius: 50%;
-  padding: 8px;
+  
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #ff4d4d; 
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s ease; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+    cursor: pointer;
+} */
+
+
+
+/* .delete:hover{
+  /* cursor: pointer;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2); */
+  /* background-color: rgba(255, 77, 77, 0.8); Lighter color on hover */
+    /* backdrop-filter: blur(5px); Glassmorphic effect - blur the background */
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); Enhanced shadow on hover */
+/* } */ 
+
+
+.delete {
+  position: absolute;
+  top:200px;
+  right: 50px;
+	box-shadow: 3px 4px 0px 0px #8a2a21;
+	background:linear-gradient(to bottom, #c62d1f 5%, #f24437 100%);
+	background-color:#c62d1f;
+	border-radius:28px;
+	border:1px solid #d02718;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	font-weight:bold;
+	font-style:italic;
+	padding:7px 21px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #810e05;
+}
+.delete:hover {
+	background:linear-gradient(to bottom, #f24437 5%, #c62d1f 100%);
+	background-color:#f24437;
+}
+.delete:active {
+	position:absolute;
+	top:1px;
 }
 
 
 
-.delete:hover{
-  cursor: pointer;
-  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
-}
+
+
+
 /* details styles */
 .details{
   position: relative;
@@ -166,4 +256,17 @@ textarea{
 .cnnt-para{
   font-family: 'Amita', cursive;
   font-size:x-large;
+}
+
+
+
+
+.details{
+  background: rgba(255, 255, 255, 0.3); /* Semi-transparent background */
+  padding: 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(10px); /* Glassmorphic effect - blurred background */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Shadow for the container */
+  max-width: 800px; /* Adjust as needed */
+  margin: 20px auto; /* Center the container */
 }

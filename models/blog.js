@@ -5,7 +5,8 @@ const blogSchema=new Schema({
     title:{type:String, required:true},
     snippet:{type:String, required:true},
     body:{type:String, required:true},
-    imageUrl:{type:String, required:true}
+    imageUrl:{type:String, required:false, default:""},
+    videoUrl:{type:String, required:false, default:""},
 },{timestamps:true});
 
 
