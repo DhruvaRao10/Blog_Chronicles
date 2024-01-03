@@ -15,6 +15,7 @@ const htmlToText = require('html-to-text').htmlToText;
 require('./auth') ;         
 const{collection} = require('./config') ; 
 const cheerio = require('cheerio') ; 
+// const {ObjectId} = mongoose.Schema.Types 
 // const Grid = require('gridfs-stream') ; 
 // const connection = mongoose.connection  ;
 
@@ -69,7 +70,31 @@ const blogSchema = new mongoose.Schema({
         contentType: String,
       },
     ],
+    comments:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comments'
+    }]
   }, { timestamps: true });
+
+
+  const commentSchema = new mongoose.Schema({
+        author: String,
+        comment: String 
+  }); 
+
+  const Comment = mongoose.model('Comment',commentSchema) ; 
+
+  // const postSchema = new mongoose.Schema{{
+  //      likes:[{type:ObjectId,ref:"User"}],
+  //      comments:[{
+  //         text:String,
+  //         postedBy:{type:ObjectId,ref:"User"} 
+  //      }],
+  //      postedBy:{
+  //         type:ObjectId,
+  //         ref: "User"
+  //      }
+  // }}
     
 
  
@@ -215,6 +240,8 @@ app.post("/login",async (req,res) =>{
 })
 
 
+
+
 function getUserInterests(){
     const interests = ["science", "stocks", "money","yellow fever","blah","toy"];
     return interests;
@@ -290,8 +317,6 @@ app.post("/search",async(req,res)=>{
    }
 
 })
-
-
 
 
 
@@ -375,31 +400,43 @@ app.post('/blogs', upload.none(), async (req, res) => {
   app.use((req,res)=>{
       res.status(404).render('404',{title: '404'})
   })
-  
-  
 
-// app.post("/createblog",async(req,res)=>{
-//       try{
-            
-//           console.log(" in  create blog method ") ;
-         
-       
-//           const newblog = new blogsmodel({ Topic: req.body.Topic,
-//                                            Title: req.body.Title, 
-//                                            Content: req.body.Content 
-//                                          }); 
-//                                          console.log(" newblog created") ;                               
-//           newblog.save();
-//           console.log("new blog saved" );
-//           res.json(newblog);
-//     }
-//       catch{
-//             console.error("Error in creating blog:");
-//             res.status(500).send("Internal Server Error");
-//       }
-//      // mongoose.connection.close();
-// }) 
 
+  app.post('/blogs/:id/comments',function(req,res){
+    consolve.log(req.params.id) ; 
+    console.log(req.body.comment)  ;
+    const comment  = new Comment({
+        author: user.username , 
+        comment: req.body.comment 
+    });
+    comment.save((err,result)=>{
+           if(err){
+               console.log(err)
+           }else{
+              Blog.findById(req.params.id ,(err,post) => {
+                    if(err){
+                        console.log(err) ; 
+                    }
+                    else{
+                        console.log('comments')
+                                
+                    }
+              }) ; 
+              console.log(result)  
+              res.redirect('/') ; 
+           }
+    }) ; 
+}); 
+
+
+app.use(function(req,res,next){
+    var error404 = new Error("Route not found") ; 
+    error404.status = 404 ; 
+    next(error404) ; 
+}) ; 
+
+
+  
 const port = 5000 ; 
 app.listen(port,() =>{
       console.log(`Server running on port: ${port}` ) ; 
