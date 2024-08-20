@@ -18,7 +18,7 @@ app.set('view engine', 'ejs');
 
 const dbURI='mongodb://localhost:27017/blogImageNew'
 
-app.listen(3003);
+app.listen(300);
 //connecting database
 mongoose.connect(dbURI, {useNewUrlParser:true , useUnifiedTopology:true})
 .then((result)=> console.log('connected to db'))

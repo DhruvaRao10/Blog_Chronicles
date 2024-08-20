@@ -26,6 +26,9 @@ body::before {
   filter: blur(3px); /* Adjust the value to control the intensity of the blur */
   pointer-events: none; /* Allows clicking through the pseudo-element to the content */
 }
+
+
+
 p, h1, h2, h3, a, ul{
   margin: 0;
   padding: 0;
@@ -129,69 +132,32 @@ h3{
 .blogs_content a:hover h3{
   color: crimson;
 }
-/* .delete{
-  position: absolute;
-  top:0;
-  right: 0;
-  
-    display: inline-block;
-    padding: 8px 16px;
-    background-color: #ff4d4d; 
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 1em;
-    text-decoration: none;
-    text-align: center;
-    transition: background-color 0.3s ease; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
-    cursor: pointer;
-} */
 
-
-
-/* .delete:hover{
-  /* cursor: pointer;
-  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2); */
-  /* background-color: rgba(255, 77, 77, 0.8); Lighter color on hover */
-    /* backdrop-filter: blur(5px); Glassmorphic effect - blur the background */
-    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); Enhanced shadow on hover */
-/* } */ 
-
-
-.delete {
-  position: absolute;
-  top:200px;
-  right: 50px;
-	box-shadow: 3px 4px 0px 0px #8a2a21;
-	background:linear-gradient(to bottom, #c62d1f 5%, #f24437 100%);
-	background-color:#c62d1f;
-	border-radius:28px;
-	border:1px solid #d02718;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:17px;
-	font-weight:bold;
-	font-style:italic;
-	padding:7px 21px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #810e05;
+/* delete */
+.delete{
+  width: 30%;
+  height: 35px;
+  background-color: #777;
+  border-radius: 10px;
+  padding: 8px;
 }
-.delete:hover {
-	background:linear-gradient(to bottom, #f24437 5%, #c62d1f 100%);
-	background-color:#f24437;
-}
-.delete:active {
-	position:absolute;
-	top:1px;
+.delete:hover{
+  cursor: pointer;
+  box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.2);
 }
 
-
-
-
-
+/* update */
+.update{
+  width: 30%;
+  height: 35px;
+  background-color: #777;
+  border-radius: 10px;
+  padding: 8px;
+}
+.update:hover{
+  cursor: pointer;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+}
 
 /* details styles */
 .details{
@@ -206,9 +172,12 @@ h3{
 .create-blog textarea{
   display: block;
   width: 100%;
-  margin: 10px 0;
+  margin: 5px 0;
   padding: 8px;
   border-radius: 8px;
+}
+#imageFile, #videoFile{
+  padding: 0;
 }
 .create-blog label{
   display: block;
@@ -269,4 +238,25 @@ textarea{
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Shadow for the container */
   max-width: 800px; /* Adjust as needed */
   margin: 20px auto; /* Center the container */
+}
+
+
+.buttons{
+  background: rgba(255, 255, 255, 0.3); /* Semi-transparent background */
+  display: flex;
+  justify-content: space-around ;
+  padding: 15px;
+  border-radius: 10px;
+  backdrop-filter: blur(10px); /* Glassmorphic effect - blurred background */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Shadow for the container */
+  max-width: 800px; /* Adjust as needed */
+  margin: 5px auto; /* Center the container */
+}
+
+
+.btns{
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
 }

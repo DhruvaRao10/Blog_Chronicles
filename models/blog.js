@@ -7,6 +7,9 @@ const blogSchema=new Schema({
     body:{type:String, required:true},
     imageUrl:{type:String, required:false, default:""},
     videoUrl:{type:String, required:false, default:""},
+
+
+
 },{timestamps:true});
 
 
@@ -14,3 +17,5 @@ const blogSchema=new Schema({
 const Blog=mongoose.model('Blog', blogSchema);
 
 module.exports=Blog; 
+
+

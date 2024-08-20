@@ -1,66 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Ninja | <%= title %></title>
-    <link rel="stylesheet" href="/styles.css">
-</head>
-<body>
-    <nav>
-        <div class="site-title">
-            <a href="/"><h1>Blog Ninja</h1></a>
-            <p>A Ninja site</p>
-        </div>
-        <ul>
-            <li><a href="/blogs">Blogs</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/blog/create">New Blog</a></li>
-        </ul>
-    </nav>
-
-    <div class="create-blog content">
+    <html lang="en">
+    <head>
+        <link rel="icon" href="../favicon.ico" type="image/x-icon">
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Blog Ninja | <%= title %></title>
+        <link href="https://cdn.jsdelivr.net/npm/daisyui@4.10.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/3.2.6/css/froala_editor.pkgd.min.css">
+        <link href="../css/froala_style.min.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="/styles.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/3.2.6/js/froala_editor.pkgd.min.js"></script>
+        <!--  -->
+    </head>
+    <body>
         
-        <form action="/blogs" method="POST" enctype="multipart/form-data">
+
+        <nav>
+            <div class="site-title">
+                <a href="/"><h1>All In One</h1></a>
+                <p>A Ninja site</p>
+            </div>
+            <ul>
+                <li><a href="/blogs">Blogs</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/blog/create">New Blog</a></li>
+            </ul>
+        </nav>
+
+        <div class="create-blog content">
+            
+            <form action="/blogs" method="POST" enctype="multipart/form-data">
+
+
             <label for="title">Blog title:</label>
-        <input type="text"  id="title" name="title" required>
-        <label for="snippet">Blog snippet:</label>
-        <input type="text"  id="snippet" name="snippet" required>
-        <label for="body">Blog body:</label>
-        <textarea id="body" name="body" required></textarea>
-        <label for="imageFile">Attach Image:</label>
-        <input type="file" name="image" id="imageFile">
-        <label for="videoFile">Attach Video:</label>
-        <input type="file" name="video" id="videoFile">
+            <input type="text" class="input input-bordered input-sm w-full max-w-xs"  id="title" name="title" required>
 
-        <button>SUBMIT</button>
-        </form>
-    </div>
+            <label for="snippet">Blog snippet:</label>
+            <input type="text" class="input input-bordered input-sm w-full max-w-xs"  id="snippet" name="snippet" required>
+
+            <label for="body">Blog body:</label>
+            <textarea class="fr-view" id="body" name="body" required></textarea>
+            
+
+            <label for="imageFile">Attach Image:</label>
+            <!-- <input type="file" name="image" id="imageFile"> -->
+            <input type="file" class="file-input file-input-bordered file-input-primary w-full max-w-xs" name="image" id="imageFile" />
+
+            <label for="videoFile">Attach Video:</label>
+            <!-- <input type="file" name="video" id="videoFile"> -->
+            <input type="file" class="file-input file-input-bordered file-input-accent w-full max-w-xs" name="video" id="videoFile" />
+
+            <button class="btn glass">SUBMIT</button>
 
 
-    <script>
-        async function uploadImage() {
-            const fileInput = document.getElementById('fileInput');
-            const file = fileInput.files[0];
-            const formData = new FormData();
-            formData.append('image', file);
+            </form>
+        </div>
 
-            try {
-                const response = await fetch('/upload', {
-                    method: 'POST',
-                    body: formData
-                });
+        <script type="text/javascript" src="node_modules/froala-editor/js/froala_editor.pkgd.min.js"></script>
+        <script>
+            var editor = new FroalaEditor('#body');
+            async function uploadImage() {
+                const fileInput = document.getElementById('fileInput');
+                const file = fileInput.files[0];
+                const formData = new FormData();
+                formData.append('image', file);
 
-                if (response.ok) {
-                    console.log('File uploaded successfully.');
-                } else {
-                    console.error('Failed to upload file.');
+                try {
+                    const response = await fetch('/upload', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (response.ok) {
+                        console.log('File uploaded successfully.');
+                    } else {
+                        console.error('Failed to upload file.');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
                 }
-            } catch (error) {
-                console.error('Error:', error);
             }
-        }
-    </script>
-</body>
-</html>
+        </script>
+        
+        
+    </body>
+    </html>
